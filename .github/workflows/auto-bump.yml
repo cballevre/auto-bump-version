@@ -1,0 +1,23 @@
+name: Auto Bump Version
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Compare release tag with repo version
+        run: |
+          echo "Release Tag: ${{ github.event.release.tag_name }}"
+          echo "Repo Version: ${{ steps.bump_version.outputs.version }}"
